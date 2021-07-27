@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+        <types>
+        <members>Order__c</members>
+        <members>Order_Line_Items__c</members>
+        <members>Passenger__c</members>
+        <members>Customization__c</members>
+        <members>Allocation__c</members>
+        <members>Guide_Allocation__c</members>
+        <members>Component__c</members>
+        <members>Coupons__c</members>
+        <members>Trip_Security_Device__c</members>
+        <name>CustomObject</name>
+    </types>
+    <version>52.0</version>
+</Package>
