@@ -10,6 +10,15 @@
         <members>Component__c</members>
         <members>Coupons__c</members>
         <members>Trip_Security_Device__c</members>
+        <members>Itinerary_Days__c</members>
+        <members>Lead</members>
+        <members>Accommodation__c</members>
+        <members>Itinerary__c</members>
+        <members>Component_Pricing__c</members>
+        <members>Payment_Transaction__c</members>
+        <members>Contact</members>
+        <members>Trip_Option__c</members>
+        <members>Merchant_order_line__c</members>
         <name>CustomObject</name>
     </types>
     <version>52.0</version>
