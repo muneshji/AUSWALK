@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_OLI</fullName>
+    <active>false</active>
+    <label>New OLI</label>
+    <picklistValues>
+        <picklist>Currency_Code__c</picklist>
+        <values>
+            <fullName>AUS</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Departure_City__c</picklist>
+        <values>
+            <fullName>New South Wales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Northern Territory</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Queensland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>South Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tasmania</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Victoria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Western Australia</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Passenger_Type__c</picklist>
+        <values>
+            <fullName>Double</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Twin Share</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Hold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secured</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
