@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trip_add_on__c</fullName>
+    <externalId>false</externalId>
+    <label>Trip add-on</label>
+    <referenceTo>Trip_add_on__c</referenceTo>
+    <relationshipLabel>Trip Security Device</relationshipLabel>
+    <relationshipName>Trip_Security_Device</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>
