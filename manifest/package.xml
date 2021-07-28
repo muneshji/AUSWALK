@@ -11,7 +11,7 @@
         <members> Room_Type__c </members>
         <members> Person_account__c </members>
         <members> Guide__c </members>
-        <name>CustomTab</name>
+        <name>CustomApplication</name>
 
     </types>
     <version>52.0</version>
