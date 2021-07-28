@@ -9,6 +9,38 @@
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
-        <valueSetName>City</valueSetName>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sydney</fullName>
+                <default>false</default>
+                <label>Sydney</label>
+            </value>
+            <value>
+                <fullName>Brisbane</fullName>
+                <default>false</default>
+                <label>Brisbane</label>
+            </value>
+            <value>
+                <fullName>Melbourne</fullName>
+                <default>false</default>
+                <label>Melbourne</label>
+            </value>
+            <value>
+                <fullName>Perth</fullName>
+                <default>false</default>
+                <label>Perth</label>
+            </value>
+            <value>
+                <fullName>Adelaide</fullName>
+                <default>false</default>
+                <label>Adelaide</label>
+            </value>
+            <value>
+                <fullName>Gold Coast – Tweed Heads</fullName>
+                <default>false</default>
+                <label>Gold Coast – Tweed Heads</label>
+            </value>
+        </valueSetDefinition>
     </valueSet>
 </CustomField>
