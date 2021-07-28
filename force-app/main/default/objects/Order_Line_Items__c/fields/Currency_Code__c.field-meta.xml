@@ -9,6 +9,13 @@
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
-        <valueSetName>Currency_Code</valueSetName>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AUS</fullName>
+                <default>false</default>
+                <label>AUS</label>
+            </value>
+        </valueSetDefinition>
     </valueSet>
 </CustomField>
