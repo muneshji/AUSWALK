@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>New South Wales</fullName>
+        <default>false</default>
+        <label>New South Wales</label>
+    </customValue>
+    <customValue>
+        <fullName>Queensland</fullName>
+        <default>false</default>
+        <label>Queensland</label>
+    </customValue>
+    <customValue>
+        <fullName>Tasmania</fullName>
+        <default>false</default>
+        <label>Tasmania</label>
+    </customValue>
+    <customValue>
+        <fullName>Western Australia</fullName>
+        <default>false</default>
+        <label>Western Australia</label>
+    </customValue>
+    <customValue>
+        <fullName>South Australia</fullName>
+        <default>false</default>
+        <label>South Australia</label>
+    </customValue>
+    <customValue>
+        <fullName>Northern Territory</fullName>
+        <default>false</default>
+        <label>Northern Territory</label>
+    </customValue>
+    <customValue>
+        <fullName>Victoria</fullName>
+        <default>false</default>
+        <label>Victoria</label>
+    </customValue>
+    <masterLabel>State</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
