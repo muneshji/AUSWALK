@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-        <types>
-		  <members> Accommodation_Booking__c-Accommodation Booking Layout </members>
+      <types>
+        <members> Accommodation_Booking__c-Accommodation Booking Layout </members>
         <members> Cancellation__c-Cancellation Layout </members>
         <members> Departure_Date__c-Departure Date Layout </members>
         <members> Invoice__c-Invoice Layout </members>
@@ -12,7 +12,6 @@
         <members> Person_account__c-Person account Layout </members>
         <members> Guide__c-Guide Layout </members>
         <name>Layout</name>
-
-    </types>
+    </types>   
     <version>52.0</version>
 </Package>
