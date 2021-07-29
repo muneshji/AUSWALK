@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 
- <types>
-<members>Accommodation__c-Accommodation Layout</members>
-<members>Itinerary__c-Itinerary Layout</members>
-<members>Itinerary_Days__c-Itinerary Days Layout</members>
-<members>Trip_Option__c-Trip Option Layout</members>
-<members>Payment_Transaction__c-Order Coupon Layout</members>
-<members>Component_Pricing__c-Component Pricing Layout</members>
-<members>Merchant_order_line__c-Merchant order line Layout</members>
-<members>Lead-Lead Layout</members>
-<members>Contact-Contact Layout</members>
-<name>Layout</name>
-</types>
+  <types>
+        <members> Accommodation_Booking__c-Accommodation Booking Layout </members>
+        <members> Cancellation__c-Cancellation Layout </members>
+        <members> Departure_Date__c-Departure Date Layout </members>
+        <members> Invoice__c-Invoice Layout </members>
+        <members> OLI_add_on__c-OLI add-on Layout </members>
+        <members> Trip_add_on__c-Trip add-on Layout </members>
+        <members> Trip__c-Trip Layout </members>
+        <members> Room_Type__c-Room Type Layout </members>
+        <members> Person_account__c-Person account Layout </members>
+        <members> Guide__c-Guide Layout </members>
+        <name>Layout</name>
+    </types>
     <version>52.0</version>
 </Package>
