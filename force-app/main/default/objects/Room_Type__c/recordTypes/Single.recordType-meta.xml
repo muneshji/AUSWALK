@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Single</fullName>
+    <active>true</active>
+    <label>Single</label>
+    <picklistValues>
+        <picklist>Bedroom_Type__c</picklist>
+        <values>
+            <fullName>Bedroom Standard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bedroom Superior</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Currency__c</picklist>
+        <values>
+            <fullName>Aus</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type__c</picklist>
+        <values>
+            <fullName>Double</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Twin Share</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
