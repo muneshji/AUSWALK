@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 
-  <types>
-<members> Merchant_order_line__c</members>
-<name>CustomObject</name>
-    </types>
+<types>
+<members> Room_Type__c.Base_Guest </members>
+<members> Room_Type__c.Additional_Guest </members>
+<members> Trip__c.Customized </members>
+<members> Trip__c.Guided </members>
+ <name>RecordType</name>
+ </types>
+
+   <types>
+<members> Room_Type__c.Record_Type__c </members>
+<members> Room_Type__c.Unique_Identifier_Code__c </members>
+ <name>CustomField</name>
+ </types>
+
     <version>52.0</version>
 </Package>
