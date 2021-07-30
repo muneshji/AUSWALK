@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-
-<types>
-<members> Room_Type__c.Base_Guest </members>
-<members> Room_Type__c.Additional_Guest </members>
-<members> Trip__c.Customized </members>
-<members> Trip__c.Guided </members>
- <name>RecordType</name>
- </types>
-
-   <types>
-<members> Room_Type__c.Record_Type__c </members>
-<members> Room_Type__c.Unique_Identifier_Code__c </members>
- <name>CustomField</name>
- </types>
-
+	<types>
+		<members>Account.Guide_Account</members>
+		<members>Account.Merchant_Account</members>
+		<members>Account.Person_Account</members>
+		<name>RecordType</name>
+    </types>
     <version>52.0</version>
 </Package>
