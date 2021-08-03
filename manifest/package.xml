@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 
-  <types>
+<types>
 <members> Trip_add_on__c.Accommodation </members>
 <members> Trip_add_on__c.Arrive </members>
 <members> Trip_add_on__c.Behind </members>
@@ -12,10 +12,10 @@
 <members> Trip_add_on__c.Trip_Upgrade </members>
 <members> Invoice__c.Merchant </members>
 <members> Invoice__c.Passenger </members>
- <name>RecordType</name>
+<name>RecordType</name>
+</types>
 
- </types>
-   <types>
+<types>
 <members> Invoice__c.Order__c </members>
 <members> Trip__c.Country__c </members>
 <members> Trip__c.State__c </members>
@@ -23,9 +23,8 @@
 <members> Person_account__c.Country__c </members>
 <members> Guide__c.State__c </members>
 <members> Guide__c.Country__c </members>
+<name>CustomField</name>
 
- <name>CustomField</name>
-
- </types>
+</types>
     <version>52.0</version>
 </Package>
