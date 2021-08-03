@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Arrive</fullName>
+    <fullName>Trip_Upgrade</fullName>
     <active>true</active>
-    <label>Arrive</label>
+    <label>Trip Upgrade</label>
 </RecordType>
