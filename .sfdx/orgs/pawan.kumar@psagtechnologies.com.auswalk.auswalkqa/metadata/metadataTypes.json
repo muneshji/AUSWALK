@@ -690,6 +690,13 @@
         "xmlName": "MLPredictionDefinition"
       },
       {
+        "directoryName": "mlRecommendations",
+        "inFolder": false,
+        "metaFile": false,
+        "suffix": "mlRecommendation",
+        "xmlName": "MLRecommendationDefinition"
+      },
+      {
         "directoryName": "mlDataDefinitions",
         "inFolder": false,
         "metaFile": false,
@@ -795,6 +802,13 @@
         "xmlName": "BrandingSet"
       },
       {
+        "directoryName": "managedContentTypes",
+        "inFolder": false,
+        "metaFile": false,
+        "suffix": "managedContentType",
+        "xmlName": "ManagedContentType"
+      },
+      {
         "directoryName": "siteDotComSites",
         "inFolder": false,
         "metaFile": true,
@@ -849,13 +863,6 @@
         "metaFile": false,
         "suffix": "prompt",
         "xmlName": "Prompt"
-      },
-      {
-        "directoryName": "managedContentTypes",
-        "inFolder": false,
-        "metaFile": false,
-        "suffix": "managedContentType",
-        "xmlName": "ManagedContentType"
       },
       {
         "directoryName": "samlssoconfigs",
@@ -919,6 +926,27 @@
         "metaFile": false,
         "suffix": "topicsForObjects",
         "xmlName": "TopicsForObjects"
+      },
+      {
+        "directoryName": "accessControlPolicies",
+        "inFolder": false,
+        "metaFile": true,
+        "suffix": "policy",
+        "xmlName": "AccessControlPolicy"
+      },
+      {
+        "directoryName": "restrictionRules",
+        "inFolder": false,
+        "metaFile": false,
+        "suffix": "rule",
+        "xmlName": "RestrictionRule"
+      },
+      {
+        "directoryName": "fieldRestrictionRules",
+        "inFolder": false,
+        "metaFile": false,
+        "suffix": "rule",
+        "xmlName": "FieldRestrictionRule"
       },
       {
         "directoryName": "recommendationStrategies",
