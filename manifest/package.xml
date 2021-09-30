@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-     <types>
-<members>Order_Line_Items__c.Total_Amount_Outstanding__c</members>
-<members>Order_Line_Items__c.Total_Coupon_Amount__c	</members>
-<members>Order_Line_Items__c.Total_Coupon_Applied__c	</members>
-<members>Order_Line_Items__c.Total_Credit_Amount__c	</members>
-<members>Order_Line_Items__c.Total_Order_Discount__c	</members>
-<members>Order_Line_Items__c.Total_Payment_Received__c	</members>
-<members>Order_Line_Items__c.Total_Refund_Amount__c	</members>
-<name>CustomField</name>
+<types>
+<members>guideAllocation</members>
+<name>LightningComponentBundle</name>
+</types>
+<types>
+<members>auswalk_AllocateGuides</members>
+<name>AuraDefinitionBundle</name>
+</types>
+<types>
+<members>Trip_Option__c.Allocate_Guides</members>
+<name>QuickAction</name>
 </types>
     <version>52.0</version>
 </Package>

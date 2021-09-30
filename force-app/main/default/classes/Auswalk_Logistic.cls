@@ -15,6 +15,7 @@ public  class Auswalk_Logistic {
         @auraenabled public boolean showAccomodation {get;set;}
         @auraenabled public boolean showMeal {get;set;}
         @auraenabled public boolean showTransport {get;set;}
+        @auraenabled public boolean showAddon {get;set;}
         
      } 
       Public Class OLIWrapper{
@@ -70,10 +71,15 @@ public  class Auswalk_Logistic {
         @auraenabled public string Title {get;set;}
         @auraenabled public List<picklistValue> logisticPricing {get;set;}
         @auraenabled public string Comment {get;set;}
+        @auraenabled public string startLocation {get;set;}
+        @auraenabled public string dropLocation {get;set;}
     }
     public class Tour_Add_onData
     {
-        
+        @auraenabled public string Name {get;set;}
+        @auraenabled public string Title {get;set;}
+        @auraenabled public string type {get;set;}
+        @auraenabled public List<picklistValue> logisticPricing {get;set;}
     }
     public class GuideData
     {
@@ -133,15 +139,16 @@ public  class Auswalk_Logistic {
          system.debug('tripoption id---->'+tripOption);
        
         
-        List<Itinerary__c> itiList = [Select id ,name, Day__c,(Select id, name, Supplier_Type__c ,Accommodation__c,Accommodation__r.name,Meal__c,Meal__r.name,Title__c,Comments__c,Transport__r.Name from Itinerary_Days__r) from Itinerary__c where Trip_Option__c in:tripOption Order By Day__c ASC];
+        List<Itinerary__c> itiList = [Select id ,name, Day__c,(Select id, name, Supplier_Type__c ,Accommodation__c,Accommodation__r.name,Meal__c,Meal__r.name,Title__c,Comments__c,Transport__r.Name,Transport__r.Start_Location__c,Transport__r.Drop_Location__c,Trip_add_on__r.Name,Merchant_Account__r.Name from Itinerary_Days__r) from Itinerary__c where Trip_Option__c in:tripOption Order By Day__c ASC];
         system.debug('itiList  88---->'+itiList);
         
         // Code to populate room type info
         Set<String> accIds = new Set<String> ();
         Set<String> mealIds = new Set<String> ();
         Set<String> transportIds = new Set<String> ();
+        Set<String> addOnIds = new Set<String> ();
         
-        List<Itinerary_Booking_Supplier__c> ibsData = [Select id ,Supplier_Type__c,Accommodation__c,Meal__c,Transport__c  from Itinerary_Booking_Supplier__c where Itinerary__r.Trip_Option__c =:tripOption] ;
+        List<Itinerary_Booking_Supplier__c> ibsData = [Select id ,Supplier_Type__c,Accommodation__c,Meal__c,Transport__c,Trip_add_on__c  from Itinerary_Booking_Supplier__c where Itinerary__r.Trip_Option__c =:tripOption] ;
         for(Itinerary_Booking_Supplier__c ibs : ibsData){
             if(ibs.Supplier_Type__c=='Accomodation'){
                 accIds.add(ibs.Accommodation__c);
@@ -151,6 +158,9 @@ public  class Auswalk_Logistic {
             }
             if(ibs.Supplier_Type__c=='Transport'){
                 transportIds.add(ibs.Transport__c);
+            }
+            if(ibs.Supplier_Type__c=='Add-On'){
+                addOnIds.add(ibs.Trip_add_on__c);
             }
         }
         
@@ -215,7 +225,7 @@ public  class Auswalk_Logistic {
         // Code to populate Transport Logistics_Pricing info starts
         Map<String , List<picklistValue>> transportlogisticPricingMap = new Map<String , List<picklistValue>>();
         List<Transport__c> gettransportPricingData = [Select id,name,(Select id,name,Gross_Cost__c from Logistic_Pricings__r) from Transport__c where Id IN:transportIds];
-        system.Debug('gettransportPricingData Size Line 216'+gettransportPricingData.size());
+        //system.Debug('gettransportPricingData Size Line 216'+gettransportPricingData.size());
         
         if(!gettransportPricingData.isEmpty()){
             for(Transport__c trans:gettransportPricingData){
@@ -234,6 +244,27 @@ public  class Auswalk_Logistic {
         
         // Code to populate Accommodation Logistics_Pricing info Ends
         
+        // Code to populate Add-On Logistics_Pricing info starts
+        Map<String , List<picklistValue>> addOnlogisticPricingMap = new Map<String , List<picklistValue>>();
+        List<Trip_add_on__c	> getAddOnPricingData = [Select id,name,(Select id,name,Gross_Cost__c from Logistic_Pricings__r) from Trip_add_on__c WHERE Id IN:addOnIds];
+        
+        if(!getAddOnPricingData.isEmpty()){
+            system.debug('AddOn Pricing Line 252'+getAddOnPricingData);
+            for(Trip_add_on__c	addOn :getAddOnPricingData){
+            List<picklistValue> listLogisticPricing = new List<picklistValue>();
+            for(Logistics_Pricing__c lp :addOn.Logistic_Pricings__r){
+                picklistValue LogisticPricing = new picklistValue();
+                LogisticPricing.rtRecordId=lp.Id;
+                LogisticPricing.label=lp.name;
+                LogisticPricing.value= lp.name;
+                LogisticPricing.price= lp.Gross_Cost__c;
+                listLogisticPricing.add(LogisticPricing);
+            }
+            addOnlogisticPricingMap.put(addOn.id,listLogisticPricing);
+        }
+        }
+        // Code to populate Accommodation Logistics_Pricing info Ends
+        // 
         // Code to populate Pricing Category info starts
         List<picklistpriceCategory> priceCategoryList = new List<picklistpriceCategory>();
         picklistpriceCategory priceCategory = new picklistpriceCategory();
@@ -245,7 +276,8 @@ public  class Auswalk_Logistic {
         priceCategory1.value='Per Qty';
         priceCategoryList.add(priceCategory1);
         // Code to populate Pricing Category info Ends
-        // 
+        
+        
         List<itineraryDays> itiDays = new List<itineraryDays> ();
         
         for(Itinerary__c iti : itiList){
@@ -255,6 +287,7 @@ public  class Auswalk_Logistic {
             List<accomodationData> accData = new List<accomodationData>();
             List<mealData> Mdata = new List<mealData>();
             List<TransportData> Transdata = new List<TransportData>();
+            List<Tour_Add_onData> TOur_Addon = new List<Tour_Add_onData>();
             
             for(Itinerary_Booking_Supplier__c  ibs : iti.Itinerary_Days__r){
                 
@@ -292,10 +325,25 @@ public  class Auswalk_Logistic {
                     TData.Comment=ibs.Comments__c;
                     TData.Title=ibs.Title__c;
                     TData.logisticPricing=transportlogisticPricingMap.get(ibs.Transport__c);
+                    TData.startLocation=ibs.Transport__r.Start_Location__c;
+                    TData.dropLocation=ibs.Transport__r.Drop_Location__c;
                     Transdata.add(TData);
                     
                 }
                 // Data for transport ends
+                
+                // Data for Add-On starts
+                if(ibs.Supplier_Type__c!=Null){
+                    if(ibs.Supplier_Type__c =='Add-On' || ibs.Supplier_Type__c =='Tours' || ibs.Supplier_Type__c =='National Park'){
+                    Tour_Add_onData addOn = new  Tour_Add_onData();
+                    addOn.Name=ibs.Trip_add_on__r.Name;        
+                    addOn.type=ibs.Supplier_Type__c;
+                    addOn.Title=ibs.Merchant_Account__r.Name;
+                    addOn.logisticPricing=addOnlogisticPricingMap.get(ibs.Trip_add_on__c);
+                    TOur_Addon.add(addOn);
+                	}
+                }
+                // Data for Add-On ends
             }
             if(accData!=null){
              itiInfo.showAccomodation=true;
@@ -319,6 +367,13 @@ public  class Auswalk_Logistic {
              itiInfo.showTransport=false;
 
             }
+            if(TOur_Addon!=null){
+                itiInfo.TOur_Addon=TOur_Addon;
+                itiInfo.showAddon=true;
+            }
+            else{
+                itiInfo.showAddon=false;
+            }
             itiDays.add(itiInfo);
         }
         System.debug('itiDays'+itiDays);
@@ -339,6 +394,7 @@ public  class Auswalk_Logistic {
          List<Order_logistics__c> LogBooking=new list<Order_logistics__c>();
          List<Accommodation__c> Accid= [SELECT Id,Name from Accommodation__c  ];
          List<Transport__c> Tid= [SELECT Id,Name from Transport__c  ];
+         List<Trip_add_on__c> addOn= [SELECT Id,Name,(select id,Merchant_Account__c,Merchant_Account__r.Name,Trip_add_on__c,Trip_add_on__r.Name from Itinerary_Booking_Supplier__r) from Trip_add_on__c ];
          List<Room_Type__c> roomTypeId = [SELECT Id,Name from Room_Type__c  ];
                
          Set<String> daysname =new Set<String>();
@@ -352,6 +408,7 @@ public  class Auswalk_Logistic {
                            system.debug('Bd.Day'+Bd.Day);
                     
                }
+               //convert set into list
                List<String> daysnamelist =new List<String>(daysname);
                 for(Integer i=0;i<daysnamelist.size();i++){
                        Logistics_Booking__c  log_Booking =new Logistics_Booking__c ();
@@ -367,7 +424,21 @@ public  class Auswalk_Logistic {
                    system.debug('LogBooking1'+LogBooking1);
                }
                
-               List<Logistics_Booking__c> LogisticBookingF =[Select Id,Name from Logistics_Booking__c where Name in:daysname ];
+               //fetch record of logistics booking for OLI
+               List<Logistics_Booking__c> fetchLogisticBookingtoUpdate = [Select Id,Name from Logistics_Booking__c where Order_Line_Items__c =:olirecordIDData];
+               if(!fetchLogisticBookingtoUpdate.isEmpty()){
+                   for(Logistics_Booking__c LB:fetchLogisticBookingtoUpdate){
+                       system.debug('Logistics_Booking__c Line 378 '+LB.Name);
+                       for(bookingData BD:saveData){
+                           
+                           //match if we day is already present
+                           system.debug('BD Day Line 382 '+BD.Day);
+                       }
+                   }
+               }
+               
+               
+               List<Logistics_Booking__c> LogisticBookingF =[Select Id,Name,Order_Line_Items__c from Logistics_Booking__c where Name in:daysname AND Order_Line_Items__c =:olirecordIDData];
                
         for(bookingData BD:saveData){
             system.debug('SaveData Line 272'+BD);
@@ -430,12 +501,43 @@ public  class Auswalk_Logistic {
             }
             }
             }
+                else if(BD.Suppliertype=='TOur_Addon'){
+                            for(Trip_add_on__c add:addOn){
+                                for(Itinerary_Booking_Supplier__c ibs:add.Itinerary_Booking_Supplier__r){
+                                    if(ibs.Trip_add_on__r.Name==BD.Title && ibs.Merchant_Account__r.Name==BD.Information){
+                                       LB.Trip_add_on__c=ibs.Trip_add_on__c;
+                                        for(integer i=0;i<Accid.size();i++){
+                                            if(Accid[i].Name==BD.Information){
+                                                LB.Accommodation__c=Accid[i].Id;
+                                            }
+                                            if(Accid[i].Name!=BD.Information){
+                                                for(integer j=0;j<Mid.size();j++){
+                                                    if(Mid[j].Name==BD.Information){
+                                                        LB.Meal__c=Mid[i].Id;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        //if(Accid[i].Name==BD.Information ){
+                                          
+                                        
+                                        if(BD.Price!=Null){
+             								system.debug('BD.Price '+BD.Price);
+         	 								Double newValue = double.valueOf(BD.Price.trim());
+             								system.debug('Double newValue '+newValue);
+             								LB.Price__c = newValue;
+             							}
+                                    }
+                                }
+                            }
+                		}
             }
          LogBooking.add(LB);
             }
             }
                 system.debug('LogBooking Line258'+LogBooking);
+               system.debug('LogBooking Line258 '+LogBooking.size());
                 insert LogBooking;
-            }
-    
+
+}
 }
