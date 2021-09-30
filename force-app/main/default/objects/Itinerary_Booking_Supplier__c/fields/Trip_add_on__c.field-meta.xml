@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trip_add_on__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Trip add-on</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>$Source.Itinerary__c</field>
+            <operation>equals</operation>
+            <valueField>Trip_add_on__c.Itinerary__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Trip_add_on__c</referenceTo>
+    <relationshipLabel>Itinerary Booking Supplier</relationshipLabel>
+    <relationshipName>Itinerary_Booking_Supplier</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
