@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 <types>
-
+<members>Trip_add_on__c.Itinerary__c</members>
 <members>Itinerary_Booking_Supplier__c.Trip_add_on__c</members>
 
 <name>customField</name>
