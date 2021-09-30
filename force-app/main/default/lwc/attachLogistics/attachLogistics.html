@@ -49,8 +49,8 @@
 									<table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table--striped slds-max-medium-table--stacked-horizontal"
 									role="grid" style="table-layout:fixed;">
 											<thead>
-												<tr class="slds-line-height_reset">
-													<th class="" scope="col">
+												<tr class="">
+													<th class="slds-size_1-of-8" scope="col">
 														<div class="slds-truncate" title="Checkbox">Select</div>
 													</th>
 													<th class="" scope="col">
@@ -76,7 +76,7 @@
 														<td >
 															<lightning-input class="slds-p-left_xx-large"  type="checkbox"   data-id2={index}   data-id="Accomodation" data-id1={indexchild} onchange={handleChange}></lightning-input>
 														</td>
-														<td>
+														<td class="slds-cell-wrap">
 													{Accomodation.Name}
 													  </td>
 													  <td>
@@ -113,6 +113,12 @@
 														<div class="slds-truncate" title="Name">Name</div>
 													</th>
 													<th class="" scope="col">
+														<div class="slds-truncate" title="Start Location">Start Location</div>
+													</th>
+													<th class="" scope="col">
+														<div class="slds-truncate" title="Drop Location">Drop Location</div>
+													</th>
+													<th class="" scope="col">
 														<div class="slds-truncate" title="Logistic Pricing">Logistic Pricing</div>
 													</th>
 													<th class="" scope="col">
@@ -134,6 +140,12 @@
 															<div>{Transport.Title}</div>
 														</td>
 														<td scope="col">
+															<div>{Transport.startLocation}</div>
+														</td>
+														<td scope="col">
+															<div>{Transport.dropLocation}</div>
+														</td>
+														<td scope="col">
 															<lightning-combobox  name="Logistic Pricing"  value={Transport.logisticPricing}  options={Transport.logisticPricing} data-id2={index} data-id="Transport" data-id1={indexchild} onchange={accLogisticPricingChangeHandler}></lightning-combobox>
 															  </td>
 														<td scope="col">
@@ -143,22 +155,62 @@
 												</template>
 											</tbody>
 										</table>
-									
-									
-									
-									
-									
 								</lightning-accordion-section>
 							
 						</template>
-						<template if:true={itineraryDays.TOur_Addon}>
-							<p>
+						<template if:true={itineraryDays.showAddon}>
 								<lightning-accordion-section name="Tours/Add-on" label="Tours/Add-on">
-									<template for:each ={itineraryDays.TOur_Addon} for:item="TOur_Addon" for:index="indexchild">
-										<lightning-input class="slds-p-left_xx-large" key={TOur_Addon.Name} type="checkbox" label={TOur_Addon.Name} data-id2={index}   data-id="TOur_Addon" data-id1={indexchild} onchange={handleChange} ></lightning-input>
-									</template>
+									<table class="slds-table slds-table_cell-buffer slds-table_bordered">
+										<thead>
+											<tr class="slds-line-height_reset">
+												<th class="" scope="col">
+													<div class="slds-truncate" title="Select">Select</div>
+												</th>
+												<th class="" scope="col">
+													<div class="slds-truncate" title="Name">Name</div>
+												</th>
+												<th class="" scope="col">
+													<div class="slds-truncate" title="Merchant Name">Merchant Name</div>
+												</th>
+												<th class="" scope="col">
+													<div class="slds-truncate" title="Type">Type</div>
+												</th>
+												<th class="" scope="col">
+													<div class="slds-truncate" title="Logistic Pricing">Logistic Pricing</div>
+												</th>
+												<th class="" scope="col">
+													<div class="slds-truncate" title="Price">Price</div>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<template for:each ={itineraryDays.TOur_Addon} for:item="TOur_Addon" for:index="indexchild">
+												<tr key={TOur_Addon.Name}>
+													<td scope="col">
+														<div>
+														<lightning-input class="slds-p-left_xx-large"  type="checkbox" data-id2={index}   data-id="TOur_Addon" data-id1={indexchild} onchange={handleChange} placeholder="Update Price"></lightning-input>
+														</div>
+													</td>
+													<td scope="col">
+														<div>{TOur_Addon.Name}</div>
+													</td>
+													<td scope="col">
+														<div>{TOur_Addon.merchantName}</div>
+													</td>
+													<td scope="col">
+														<div>{TOur_Addon.type}</div>
+													</td>
+													<td scope="col">
+														<lightning-combobox  name="Logistic Pricing"  value={TOur_Addon.logisticPricing}  options={TOur_Addon.logisticPricing} data-id2={index} data-id="TOur_Addon" data-id1={indexchild} onchange={accLogisticPricingChangeHandler}></lightning-combobox>
+														  </td>
+													<td scope="col">
+														<lightning-input class="slds-p-left_xx-large TOurAddonPrice"  type="currency" data-id2={index} data-id="TOur_Addon" data-id1={indexchild} placeholder="Update Price" onchange={priceChangeHandler}></lightning-input>
+													  </td>
+												</tr>
+											</template>
+										</tbody>
+									</table>
 								</lightning-accordion-section>
-							</p>
 						</template>
 						<template if:true={itineraryDays.Guide}>
 							<p>
