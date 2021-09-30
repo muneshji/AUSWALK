@@ -26,19 +26,10 @@ export default class GuildeAllocation extends LightningElement {
     }
 
     clickHandler(){
-        let getGuide = this.template.querySelector(".PrimaryGuide");
-        let getGuideId = getGuide.value;
-        console.log('Guide Value in click event - '+JSON.stringify(getGuideId));
-
-        if(!getGuideId){
-            getGuide.setCustomValidity('Please Select Min 1 value');
-        }
-        else{
-            getGuide.setCustomValidity('');
-            console.log('Data for Apex 25 = '+JSON.stringify(this.guideSelected));
+            console.log('After Splice This List '+JSON.stringify(this.list));
 
             guideAllocationData({
-                AllocationData:this.guideSelected
+                AllocationData:this.list
             }).then((data)=>{
               
                 const evt = new ShowToastEvent({
@@ -55,9 +46,7 @@ export default class GuildeAllocation extends LightningElement {
             }).catch((error)=>{
                 console.log('FromApex ',JSON.stringify(error));
             });
-            this.guideDataTable=[];
-        }
-        getGuide.reportValidity();
+            this.list=[];
     }
 
     PrimaryGuide(event){
