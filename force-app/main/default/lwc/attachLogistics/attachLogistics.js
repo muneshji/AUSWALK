@@ -19,6 +19,7 @@ export default class AttachLogistics extends LightningElement {
     @track isChecked = false;
     @track options;
     @track selectedOliDataTable;
+    @track showItineraryData = false;
     
 
   activeSectionMessage = '';
@@ -90,6 +91,8 @@ export default class AttachLogistics extends LightningElement {
         }
         console.log('Select Checkbox Data: Line 91 '+JSON.stringify(this.selectedOliDataTable));
     }
+
+    this.showItineraryData = true;
 }
 
     handleChange(event){
@@ -139,7 +142,7 @@ export default class AttachLogistics extends LightningElement {
            
        /* this.TransportData=this.itinerary[i].type[j];*/
        console.log('Table Data 141 -->'+JSON.stringify(this.tableData));
-        
+       console.log('Table Data 141 -->'+JSON.stringify(this.tableData.Title));
         
        this.list.push({
             SupplierType: type,
@@ -358,7 +361,7 @@ export default class AttachLogistics extends LightningElement {
             }
         }
         }
-        console.log('transport 213-->'+JSON.stringify(this.list));
+        console.log('transport 361-->'+JSON.stringify(this.list));
     }
     priceChangeHandler(event){
         let i=event.target.getAttribute('data-id2');
