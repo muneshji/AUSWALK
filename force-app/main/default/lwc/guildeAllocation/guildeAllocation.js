@@ -115,6 +115,9 @@ export default class GuildeAllocation extends NavigationMixin(LightningElement) 
         
         console.log('Secondary guide Selected Value test'+selectValue);
 
+        let getGuide = this.template.querySelector(".SecondaryGuide");
+        let getGuideId = getGuide.value;
+
         //validation for guide selection - start
         console.log('This List '+JSON.stringify(this.list));
         console.log('This List '+JSON.stringify(getGuideId));
@@ -152,7 +155,7 @@ export default class GuildeAllocation extends NavigationMixin(LightningElement) 
                 console.log('Selected Guide Id '+JSON.stringify(selectValue));
     
                 if(this.list[m].guideAllocation==='Secondary Guide'){
-                    if(selectValue!==this.list[m].guideId){
+                    if(getGuideId!==this.list[m].guideId){
                         console.log('This List Splice'+JSON.stringify(this.list[m].guideId));
                             this.list.splice(m,1);
                     }
