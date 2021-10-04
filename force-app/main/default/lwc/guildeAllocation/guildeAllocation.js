@@ -2,15 +2,18 @@ import { LightningElement,track,api } from 'lwc';
 import getAllocationData from '@salesforce/apex/auswalk_guideAllocationHandler.getData';
 import guideAllocationData from '@salesforce/apex/auswalk_guideAllocationHandler.getGuideAllocationDate';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { NavigationMixin } from 'lightning/navigation';
 
-export default class GuildeAllocation extends LightningElement {
+export default class GuildeAllocation extends NavigationMixin(LightningElement) {
     activeSectionMessage = 'Guide Allocation'
     
     @track allocationData;
     @track guideDataTable;
     @track showSecondaryGuide = false;
     @api recordId;
+    @track listGuide = [];
     @track list = [];
+    @track deleteGuide = [];
     
     activeSectionMessage='Allocate Guides';
 
@@ -21,43 +24,46 @@ export default class GuildeAllocation extends LightningElement {
            //tripOptionId:'a025D00000CGxOYQA1'
         }).then(result => {
             this.allocationData=result;
-            console.log('Here in line no 19 ABC------>'+JSON.stringify(this.allocationData));
+            console.log('Here in line no 24 ABC------>'+JSON.stringify(this.allocationData));
+            console.log('Here in line no 25 ABC------>'+JSON.stringify(this.allocationData[0].guideswithTrip));
+            if(this.allocationData[0].guideswithTrip.length>0){
+                this.listGuide = this.allocationData[0].guideswithTrip;
+                this.showSecondaryGuide=true;
+            }
         })
     }
 
     clickHandler(){
-        let getGuide = this.template.querySelector(".PrimaryGuide");
-        let getGuideId = getGuide.value;
-        console.log('Guide Value in click event - '+JSON.stringify(getGuideId));
-
-        if(!getGuideId){
-            getGuide.setCustomValidity('Please Select Min 1 value');
-        }
-        else{
-            getGuide.setCustomValidity('');
-            console.log('Data for Apex 25 = '+JSON.stringify(this.guideSelected));
-
+            console.log('After Splice This List '+JSON.stringify(this.list));
+            console.log('Delete Allocation List '+JSON.stringify(this.deleteGuide));
             guideAllocationData({
-                AllocationData:this.guideSelected
+                AllocationData:this.list,
+                deleteAllocatioData:this.deleteGuide
             }).then((data)=>{
               
                 const evt = new ShowToastEvent({
                    
                     message: 'Guide Allocated successfully!',
                     variant: 'success',
+
                 });
-                this.dispatchEvent(evt);
-            
-             
+                this.dispatchEvent(evt),
+                    this[NavigationMixin.Navigate]({
+                        type: 'standard__recordPage',
+                        attributes: {
+                            recordId: this.recordId,
+                            objectApiName: 'Trip_Option__c',
+                            actionName: 'view'
+                        }
+                    });
+
                 console.log('FromApex ',JSON.stringify(data));
                 
         
             }).catch((error)=>{
                 console.log('FromApex ',JSON.stringify(error));
             });
-            this.guideDataTable=[];
-        }
-        getGuide.reportValidity();
+            this.list=[];
     }
 
     PrimaryGuide(event){
@@ -93,7 +99,7 @@ export default class GuildeAllocation extends LightningElement {
             console.log('This List guideId '+JSON.stringify(this.list[m].guideId));
             console.log('Selected Guide Id '+JSON.stringify(selectValue));
 
-            if(selectValue!==this.list[m].guideId){
+            if(selectValue!==this.list[m].guideId && this.list[m].guideAllocation==='Primary Guide'){
                 this.list.splice(m,1);
             }
         }
@@ -102,17 +108,18 @@ export default class GuildeAllocation extends LightningElement {
     }
 
     secondaryGuide(event){
+        console.log('in Secondary guide change '+JSON.stringify(this.list));
         let i=event.target.getAttribute('data-id1');
         let selectValue = event.target.value;
         console.log('I value '+i);
-        console.log('Secondary guide Selected Value '+selectValue);
-
-        let getGuide = this.template.querySelector(".SecondaryGuide");
-        let getGuideId = getGuide.value;
+        
+        console.log('Secondary guide Selected Value test'+selectValue);
 
         //validation for guide selection - start
         console.log('This List '+JSON.stringify(this.list));
-        if(getGuideId===this.list[0].guideId){
+        console.log('This List '+JSON.stringify(getGuideId));
+
+        if(selectValue===this.list[0].guideId){
             console.log(selectValue);
             getGuide.setCustomValidity('Please Select Another Guide');
         }
@@ -140,17 +147,39 @@ export default class GuildeAllocation extends LightningElement {
             console.log('This List '+JSON.stringify(this.list));
             console.log('This List '+JSON.stringify(this.list.length));
     
-            for(var m=1; m<this.list.length; m++){
-                console.log('This List guideId '+JSON.stringify(this.list[m].guideId));
+            for(var m=0; m<this.list.length; m++){
+                console.log('This List guideId Line 155'+JSON.stringify(this.list[m].guideId));
                 console.log('Selected Guide Id '+JSON.stringify(selectValue));
     
-                if(selectValue!==this.list[m].guideId){
-                    this.list.splice(m,1);
+                if(this.list[m].guideAllocation==='Secondary Guide'){
+                    if(selectValue!==this.list[m].guideId){
+                        console.log('This List Splice'+JSON.stringify(this.list[m].guideId));
+                            this.list.splice(m,1);
+                    }
                 }
+                console.log('After Splice This List '+JSON.stringify(this.list.length));
             }
             console.log('After Splice This List '+JSON.stringify(this.list));
         }
         getGuide.reportValidity();
         //validation for guide selection - End 
+    }
+    deleteGuideHandler(event){
+        let i=event.target.getAttribute('data-id');
+        let j=event.target.getAttribute('data-id1');
+
+        console.log('Total Guide List to Trip '+JSON.stringify(this.listGuide));
+        console.log('Delete Selected Guide '+JSON.stringify(this.listGuide[j]));
+        
+        this.deleteGuide.push({
+            allocationId:this.listGuide[j].allocationId,
+        });
+
+
+        if(this.listGuide.length>0){
+            this.listGuide.splice(j,1);
+        }
+        console.log('After Delete Guide '+JSON.stringify(this.listGuide));
+        console.log('Deleted Guide '+JSON.stringify(this.deleteGuide));
     }
 }

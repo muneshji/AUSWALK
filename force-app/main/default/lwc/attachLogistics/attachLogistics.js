@@ -19,12 +19,13 @@ export default class AttachLogistics extends LightningElement {
     @track isChecked = false;
     @track options;
     @track selectedOliDataTable;
+    @track showItineraryData = false;
     
 
   activeSectionMessage = '';
    
     connectedCallback() {
-        console.log('orderid line 34====>'+this.recordId);
+        console.log('orderid line 27====>'+this.recordId);
         getItineraryData({
             OrderId:this.recordId
             
@@ -33,8 +34,8 @@ export default class AttachLogistics extends LightningElement {
             this.itinerary=result.ITR;
             this.options=result.OLI;
             
-            console.log('Here in line no 35 ABC------>'+JSON.stringify(this.itinerary));
-            console.log('Here in line no 36 OLI12------>'+JSON.stringify(result.OLI));
+            console.log('Here in line no 36 ABC------>'+JSON.stringify(this.itinerary));
+            console.log('Here in line no 37 OLI12------>'+JSON.stringify(result.OLI));
         })
 
        
@@ -68,11 +69,11 @@ export default class AttachLogistics extends LightningElement {
             this.dispatchEvent(evt);
         
          
-            console.log('FromApex ',JSON.stringify(data));
+            console.log('FromApex Line 71 ',JSON.stringify(data));
             
     
         }).catch((error)=>{
-            console.log('FromApex ',JSON.stringify(error));
+            console.log('FromApex Line 75',JSON.stringify(error));
         });
         this.list=[];
         
@@ -80,16 +81,18 @@ export default class AttachLogistics extends LightningElement {
     oliSelectChangeHandler(event){
         console.log('Enter to event '+JSON.stringify(event.target.checked));
         let i=event.target.getAttribute('data-id2');
-        console.log('value of i 80--->'+i);
-        console.log('Checked Box Values Line 81==> '+JSON.stringify(this.options[i]));
+        console.log('value of i 83--->'+i);
+        console.log('Checked Box Values Line 84==> '+JSON.stringify(this.options[i]));
 
         if(event.target.checked){
         this.selectedOliDataTable = {
             oliID:this.options[i].oliRecordId,
             oliName:this.options[i].value,
         }
-        console.log('Select Checkbox Data: Line 89 '+JSON.stringify(this.selectedOliDataTable));
+        console.log('Select Checkbox Data: Line 91 '+JSON.stringify(this.selectedOliDataTable));
     }
+
+    this.showItineraryData = true;
 }
 
     handleChange(event){
@@ -97,22 +100,22 @@ export default class AttachLogistics extends LightningElement {
        let i=event.target.getAttribute('data-id2');
        let j=event.target.getAttribute('data-id1');
        let type=event.target.getAttribute('data-id');
-       console.log('value of i 82--->'+i);
-       console.log('value of j 83--->'+j);
-       console.log('value of type 84--->'+type);
-       console.log('Iternary days===dayName.'+this.itinerary[i].dayName);
+       console.log('value of i 100--->'+i);
+       console.log('value of j 101--->'+j);
+       console.log('value of type 102--->'+type);
+       console.log('Iternary days===dayName. Line 103'+this.itinerary[i].dayName);
        if(event.target.checked){
  
 
         if(type=='Accomodation'){
             this.tableData=this.itinerary[i].Accomodation[j];  
-            console.log('Accomodation ===>.'+JSON.stringify(this.itinerary[i].Accomodation[j])); 
-            console.log('Logistics Pricing 111 ===>.'+JSON.stringify(this.itinerary[i].Accomodation[j].logisticPricing));  
+            console.log('Accomodation ===>. 109'+JSON.stringify(this.itinerary[i].Accomodation[j])); 
+            console.log('Logistics Pricing 110 ===>.'+JSON.stringify(this.itinerary[i].Accomodation[j].logisticPricing));  
         }
             if(type=='Transport'){
                 this.tableData=this.itinerary[i].Transport[j];
-                console.log('TransportShow 95 ===>.'+JSON.stringify(this.itinerary[i].Transport[j]));
-                console.log('Logistics Pricing 111 ===>.'+JSON.stringify(this.itinerary[i].Transport[j].logisticPricing)); 
+                console.log('TransportShow 114 ===>.'+JSON.stringify(this.itinerary[i].Transport[j]));
+                console.log('Logistics Pricing 115 ===>.'+JSON.stringify(this.itinerary[i].Transport[j].logisticPricing)); 
          }
          if(type=='TOur_Addon'){
             this.tableData=this.itinerary[i].TOur_Addon[j];
@@ -139,7 +142,7 @@ export default class AttachLogistics extends LightningElement {
            
        /* this.TransportData=this.itinerary[i].type[j];*/
        console.log('Table Data 141 -->'+JSON.stringify(this.tableData));
-        
+       console.log('Table Data 141 -->'+JSON.stringify(this.tableData.Title));
         
        this.list.push({
             SupplierType: type,
@@ -152,11 +155,11 @@ export default class AttachLogistics extends LightningElement {
        else{
         if(type=='Accomodation'){
             this.tableData=this.itinerary[i].Accomodation[j];  
-            console.log('TransportShow 137 ===>.'+JSON.stringify(this.itinerary[i].Accomodation[j])); 
+            console.log('TransportShow 155 ===>.'+JSON.stringify(this.itinerary[i].Accomodation[j])); 
         }
             if(type=='Transport'){
                 this.tableData=this.itinerary[i].Transport[j];
-                console.log('TransportShow 141===>.'+JSON.stringify(this.itinerary[i].Transport[j]));
+                console.log('TransportShow 159===>.'+JSON.stringify(this.itinerary[i].Transport[j]));
               
          }
          if(type=='TOur_Addon'){
@@ -181,8 +184,8 @@ export default class AttachLogistics extends LightningElement {
          }
            for(var m=0; m<this.list.length; m++)
            {
-              console.log('Iternary loop 166-->'+this.itinerary[m].dayName+'List day----->'+this.list[m].Day);
-              console.log('Iternary Name 167-->'+this.tableData.Name +'List Title----->'+this.list[m].Title);
+              console.log('Iternary loop 184-->'+this.itinerary[m].dayName+'List day----->'+this.list[m].Day);
+              console.log('Iternary Name 185-->'+this.tableData.Name +'List Title----->'+this.list[m].Title);
 
            if( this.itinerary[i].dayName==this.list[m].Day && this.tableData.Name==this.list[m].Title)
 
@@ -190,7 +193,7 @@ export default class AttachLogistics extends LightningElement {
             console.log('list Start--');
 
              this.list.splice(m,1);
-             console.log('listRemove 175--'+JSON.stringify(this.list));
+             console.log('listRemove 193--'+JSON.stringify(this.list));
            }
            }
 
@@ -200,12 +203,12 @@ export default class AttachLogistics extends LightningElement {
         let i=event.target.getAttribute('data-id2');
         let j=event.target.getAttribute('data-id1');
         let type=event.target.getAttribute('data-id');
-        console.log('value of i Logistic Price--->'+i);
-        console.log('value of j Logistic Price--->'+j);
-        console.log('value of type Logistic Price--->'+type);
+        console.log('value of i Logistic Price---> line 203 '+i);
+        console.log('value of j Logistic Price--->line 204 '+j);
+        console.log('value of type Logistic Price--->line 205 '+type);
 
         let elementValue = event.target.value;
-            console.log('Line 196 '+elementValue);
+            console.log('Line 208 '+elementValue);
 
 
 
@@ -299,7 +302,7 @@ export default class AttachLogistics extends LightningElement {
 
 
             for(var m=0;m<this.list.length;m++){
-                console.log('Line 274 '+JSON.stringify(this.list[m].Title));
+                console.log('Line 302 '+JSON.stringify(this.list[m].Title));
                     if(this.itinerary[i].TOur_Addon[j].Name==this.list[m].Title && this.itinerary[i].dayName == this.list[m].Day){ 
                         console.log('TOur_Addon Where We need changedata -'+JSON.stringify(this.list[m]));
                         let newlist = [...this.list];
@@ -316,7 +319,7 @@ export default class AttachLogistics extends LightningElement {
                         }   
                     }
                 }
-            console.log('Line 320 logistic price add '+JSON.stringify(this.list));
+            console.log('Line 319 logistic price add '+JSON.stringify(this.list));
         }
 
     }
@@ -325,23 +328,23 @@ export default class AttachLogistics extends LightningElement {
         let i=event.target.getAttribute('data-id2');
         let j=event.target.getAttribute('data-id1');
         let type=event.target.getAttribute('data-id');
-        console.log('value of i 185--->'+i);
-        console.log('value of j 186--->'+j);
-        console.log('value of type 187--->'+type);
+        console.log('value of i 328--->'+i);
+        console.log('value of j 329--->'+j);
+        console.log('value of type 330--->'+type);
 
 
         if(type=='Accomodation'){
-            console.log('TLine 191===>.'+JSON.stringify(this.itinerary[i].Accomodation[j]));
-            console.log('Line 192 ===>.'+JSON.stringify(this.itinerary[i].Accomodation[j].Name));
-            console.log('Line 192 ===>.'+JSON.stringify(this.itinerary[i].Accomodation[j].Roomtype.length));
-            console.log('transport 193-->'+JSON.stringify(this.list));
+            console.log('TLine 334===>.'+JSON.stringify(this.itinerary[i].Accomodation[j]));
+            console.log('Line 335 ===>.'+JSON.stringify(this.itinerary[i].Accomodation[j].Name));
+            console.log('Line 336 ===>.'+JSON.stringify(this.itinerary[i].Accomodation[j].Roomtype.length));
+            console.log('transport 337-->'+JSON.stringify(this.list));
 
             let elementValue = event.target.value;
-            console.log('Line 196 '+elementValue);
+            console.log('Line 134096 '+elementValue);
 
-        console.log('transport 201-->'+JSON.stringify(this.list.length));
+        console.log('transport 342-->'+JSON.stringify(this.list.length));
         for(var m=0;m<this.list.length;m++){
-            console.log('Line 203 '+JSON.stringify(this.list[m].Title));
+            console.log('Line 344 '+JSON.stringify(this.list[m].Title));
                 if(this.itinerary[i].Accomodation[j].Name==this.list[m].Title && this.itinerary[i].dayName == this.list[m].Day){ 
                     console.log('Where We need changedata -'+JSON.stringify(this.list[m]));
                     let newlist = [...this.list];
@@ -358,27 +361,27 @@ export default class AttachLogistics extends LightningElement {
             }
         }
         }
-        console.log('transport 213-->'+JSON.stringify(this.list));
+        console.log('transport 361-->'+JSON.stringify(this.list));
     }
     priceChangeHandler(event){
         let i=event.target.getAttribute('data-id2');
         let j=event.target.getAttribute('data-id1');
         let type=event.target.getAttribute('data-id');
-        console.log('value of i 188--->'+i);
-        console.log('value of j 189--->'+j);
-        console.log('value of type 190--->'+type);
+        console.log('value of i 367--->'+i);
+        console.log('value of j 368--->'+j);
+        console.log('value of type 369--->'+type);
 
         let priceElement = event.target.value;
-        console.log('Price Line 219 '+priceElement);
+        console.log('Price Line 372 '+priceElement);
 
         if(type=='Accomodation'){
-            console.log('TransportShow 221===>.'+JSON.stringify(this.itinerary[i].Accomodation[j]));
-            console.log('TransportShow 222===>.'+JSON.stringify(this.itinerary[i].Accomodation[j].Name));
-            console.log('transport 223-->'+JSON.stringify(this.list));
-            console.log('transport 224-->'+JSON.stringify(this.list.length));
+            console.log('TransportShow 375===>.'+JSON.stringify(this.itinerary[i].Accomodation[j]));
+            console.log('TransportShow 376===>.'+JSON.stringify(this.itinerary[i].Accomodation[j].Name));
+            console.log('transport 377-->'+JSON.stringify(this.list));
+            console.log('transport 378-->'+JSON.stringify(this.list.length));
 
             for(var m=0;m<this.list.length;m++){
-                console.log('Line 227 '+JSON.stringify(this.list[m].Title));
+                console.log('Line 381 '+JSON.stringify(this.list[m].Title));
                     if(this.itinerary[i].Accomodation[j].Name==this.list[m].Title && this.itinerary[i].dayName == this.list[m].Day){ 
                         console.log('Where We need changedata '+JSON.stringify(this.list[m]));
                         let newlist = [...this.list];
@@ -388,7 +391,7 @@ export default class AttachLogistics extends LightningElement {
         }
         if(type=='Transport'){
             for(var m=0;m<this.list.length;m++){
-                console.log('Line 227 '+JSON.stringify(this.list[m].Title));
+                console.log('Line 391 '+JSON.stringify(this.list[m].Title));
                     if(this.itinerary[i].Transport[j].Name==this.list[m].Title && this.itinerary[i].dayName == this.list[m].Day){ 
                         console.log('Where We need changedata '+JSON.stringify(this.list[m]));
                         let newlist = [...this.list];
@@ -398,7 +401,7 @@ export default class AttachLogistics extends LightningElement {
         }
         if(type=='Meal'){
             for(var m=0;m<this.list.length;m++){
-                console.log('Line 227 '+JSON.stringify(this.list[m].Title));
+                console.log('Line 401 '+JSON.stringify(this.list[m].Title));
                     if(this.itinerary[i].Meal[j].Name==this.list[m].Title && this.itinerary[i].dayName == this.list[m].Day){ 
                         console.log('Where We need changedata '+JSON.stringify(this.list[m]));
                         let newlist = [...this.list];
@@ -408,7 +411,7 @@ export default class AttachLogistics extends LightningElement {
         }
         if(type=='TOur_Addon'){
             for(var m=0;m<this.list.length;m++){
-                console.log('Line 441 '+JSON.stringify(this.list[m].Title));
+                console.log('Line 411 '+JSON.stringify(this.list[m].Title));
                     if(this.itinerary[i].TOur_Addon[j].Name==this.list[m].Title && this.itinerary[i].dayName == this.list[m].Day){ 
                         console.log('Where We need changedata '+JSON.stringify(this.list[m]));
                         let newlist = [...this.list];
@@ -416,6 +419,6 @@ export default class AttachLogistics extends LightningElement {
                 }
             }
         }
-        console.log('transport 235-->'+JSON.stringify(this.list));  
+        console.log('transport 419-->'+JSON.stringify(this.list));  
     }
 }

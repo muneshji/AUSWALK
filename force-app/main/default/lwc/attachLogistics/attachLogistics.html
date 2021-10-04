@@ -39,6 +39,7 @@
 								</tbody>						
 						</table>
 						</lightning-accordion-section>
+				<template if:true={showItineraryData}>		
 				<template for:each ={itinerary} for:item="itineraryDays" for:index="index" >
 					<lightning-accordion-section key={itineraryDays.dayName} name={itineraryDays.dayName} label={itineraryDays.dayName}>
 						<template if:true={itineraryDays.showAccomodation}>
@@ -195,7 +196,7 @@
 														<div>{TOur_Addon.Name}</div>
 													</td>
 													<td scope="col">
-														<div>{TOur_Addon.merchantName}</div>
+														<div>{TOur_Addon.Title}</div>
 													</td>
 													<td scope="col">
 														<div>{TOur_Addon.type}</div>
@@ -305,6 +306,7 @@
 							</p>
 						</template>
 					</lightning-accordion-section>
+				</template>
 				</template>
 			</lightning-accordion>
 		</template>

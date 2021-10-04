@@ -83,9 +83,25 @@
 						<th class="" scope="col">
 							<div class="slds-truncate" title="Guide Email">Guide Email</div>
 						</th>
+						<template if:true={showSecondaryGuide}>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Delete">Delete</div>
+						</th>
+						</template>
 					</tr>
 				</thead>
 				<tbody>
+						<template  for:each={listGuide} for:item="items" for:index="index">
+							<tr key={items.index}>
+								<td scope="col">{items.tripName}</td>
+								<td scope="col">{items.guideAllocation}</td>
+								<td scope="col">{items.guideName}</td>
+								<td scope="col">{items.guidePhone}</td>
+								<td scope="col">{items.guideEmail}</td>
+								<td><lightning-button-icon class="deleteGuide" icon-name="utility:delete" data-id1={index} data-id={items} alternative-text="Delete" title="Delete Guide"
+									onclick={deleteGuideHandler}></lightning-button-icon></td>
+							</tr>
+						</template>
 					<template  for:each={list} for:item="item" for:index="index">
 							<tr key={item.index}>
 								<td scope="col">{item.tripName}</td>
@@ -99,7 +115,9 @@
 			</table>
         </lightning-card>
 		<template if:true={showSecondaryGuide}>
+			<div align ="center">
         <lightning-button variant="success" label="Allocation" title="Successful action" onclick={clickHandler} class="slds-m-left_x-small"></lightning-button>
+	</div>
 	</template>
     </lightning-card>
 </template>
