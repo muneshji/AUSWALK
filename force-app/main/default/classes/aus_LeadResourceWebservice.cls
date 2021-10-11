@@ -40,7 +40,7 @@ global with sharing class aus_LeadResourceWebservice {
         
     }
     
-    @HttpPut
+    @HttpPost
     global static String leadIdExpose(){
         
         String stringToBeReturned;
@@ -55,7 +55,7 @@ global with sharing class aus_LeadResourceWebservice {
         // Created an External Id Field on the Trip Options and will query using that from the database. This needs to come in from the website.This would be the Salesforce Record ID for the Trip Option
         system.debug('mainWrap'+mainWrap.tripOptionExternalId);
         Trip_Option__c ausTripOption= new Trip_Option__c();
-        ausTripOption = [Select Id, Name, Trip_Option_External_ID__c,Trip__c from Trip_Option__c where Id =: mainWrap.tripOptionExternalId];  
+        ausTripOption = [Select Id, Name, Trip_Option_External_ID__c,Trip__c from Trip_Option__c where Trip_Option_External_ID__c =: mainWrap.tripOptionExternalId];  
        
         system.debug('ausTripOption'+ausTripOption);
         // system.debug('Name'+Name);
@@ -183,7 +183,8 @@ global with sharing class aus_LeadResourceWebservice {
                 if(!listOfPaxToBeInserted.isEmpty() && listOfPaxToBeInserted != null){
                     insert listOfPaxToBeInserted;
                     //Returning the Order Id if the Order along with OLIs are created....
-                    stringToBeReturned = newOrder.Id;
+                    Orders__c result =  [SELECT Id,Name  FROM Orders__c WHERE Id = :newOrder.Id];
+                    stringToBeReturned = newOrder.Id+';'+result.Name;
                 }
             }
         }

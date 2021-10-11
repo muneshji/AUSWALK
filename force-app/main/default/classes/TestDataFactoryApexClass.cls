@@ -2,9 +2,9 @@ public class TestDataFactoryApexClass {
 
     //create trip
     public static Trip__c createTrip(string recordType){
-        
+        Id devRecordTypeId = Schema.SObjectType.Trip__c.getRecordTypeInfosByName().get(recordType).getRecordTypeId();
         Trip__c trip = new Trip__c();
-        trip.RecordTypeId=recordType;
+        trip.RecordTypeId=devRecordTypeId;
         trip.Name = 'Trip 1';
         trip.Country__c = 'Australia';
         trip.Destination__c='TestDestination';
@@ -16,9 +16,10 @@ public class TestDataFactoryApexClass {
     
     //create trip option
     public static Trip_Option__c createTripOption(Id tripId, string recordType){
-        
+        Id devRecordTypeId = Schema.SObjectType.Trip_Option__c.getRecordTypeInfosByName().get(recordType).getRecordTypeId();
+
         Trip_Option__c TripOption = new Trip_Option__c();
-        TripOption.RecordTypeId = recordType;
+        TripOption.RecordTypeId = devRecordTypeId;
         TripOption.Trip__c = tripId;
         TripOption.Trip_Type__c = 'Self-Guided';
         TripOption.Walk_Grade__c='Moderate';
@@ -29,7 +30,20 @@ public class TestDataFactoryApexClass {
         
 		return TripOption;        
     }
-    
+      //create Lead
+      public static Lead createLead(Id tripId,Id tripoptionId, string recordType){
+        
+        Lead lead =new Lead();
+        lead.External_ID__c ='xyz@psagtechnologies.com#3434343434';
+        lead.Trip__c =tripId;
+        lead.Trip_Option__c =tripoptionId;
+        lead.Type_Of_Walking_Holidays__c =recordType;
+        lead.LastName='singh';
+        lead.FirstName='munesh';
+        lead.Company='Auswalk';
+        lead.No_Of_PAX__c=2;
+        return Lead;        
+    }
     //create departure date record
     public static Departure_Date__c createDepartureDate(ID TripOptionId){
         
@@ -56,9 +70,11 @@ public class TestDataFactoryApexClass {
     
     //create order
     public static Orders__c createOrder(string recordType, Id tripId,Id TripOptionId,Id DepartureDateId){
-        
+        Id devRecordTypeId = Schema.SObjectType.Orders__c.getRecordTypeInfosByName().get(recordType).getRecordTypeId();
+
         Orders__c order = new Orders__c();
         order.Trip__c = tripId;
+        Order.RecordTypeId=devRecordTypeId;
         order.Trip_Option__c=TripOptionId;
         order.Departure_Date__c=DepartureDateId;
 

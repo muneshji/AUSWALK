@@ -1,0 +1,123 @@
+<template>
+    <lightning-card >
+        <p class="slds-text-heading_small">{activeSectionMessage}</p>
+        <template if:true={allocationData}>
+            <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-table--striped slds-max-medium-table--stacked-horizontal"
+												  role="grid" style="table-layout:fixed;">
+												  <thead>
+													<tr class="slds-line-height_reset">
+														<th class="" scope="col">
+															<div class="slds-truncate" title="Trip Name">Trip Name</div>
+														</th>
+														<th class="" scope="col">
+															<div class="slds-truncate" title="Trip Option Name">Trip Option Name</div>
+														</th>
+														<th class="" scope="col">
+															<div class="slds-truncate" title="Trip Option Type">Trip Option Type</div>
+														</th>
+														<th class="" scope="col">
+															<div class="slds-truncate" title="Trip Option Price">Trip Option Price</div>
+														</th>
+													</tr>
+												</thead>
+								<tbody>
+									<template for:each ={allocationData} for:item="allocation" for:index="index" >
+										<tr key={allocation.tripName}>
+											<td>{allocation.tripName}</td>
+											<td>{allocation.tripOptionName}</td>
+											<td>{allocation.tripOptonType}</td>
+                                            <td>{allocation.tripOptonPrice}</td>
+										</tr>
+										</template>
+								</tbody>						
+						</table>
+                        <br/>
+		                <br/>
+                     <template for:each ={allocationData} for:item="allocation" for:index="index" >
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered" key={allocation.tripName}>
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Select Primary Guide">Select Primary Guide</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Select Primary Guide">Select Secondary Guide</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each ={allocationData} for:item="Guide" for:index="indexchild">
+                                        <tr key={Guide.tripName}>
+                                            <td scope="col">
+                                                <lightning-combobox  class="PrimaryGuide" name="Primary Guide"  value={Guide.guidesList}  options={Guide.guidesList} data-id1={indexchild} data-id="Guide" onchange={PrimaryGuide}></lightning-combobox>
+                                            </td>
+											<td scope="col">
+												<template if:true={showSecondaryGuide}>
+                                                <lightning-combobox  class="SecondaryGuide" name="Secondary Guide"  value={Guide.guidesList}  options={Guide.guidesList} data-id1={indexchild} data-id="Guide" onchange={secondaryGuide}></lightning-combobox>
+												</template>
+											</td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                                </table>
+                     </template>  
+        </template>
+        <br/>
+		<br/>
+		<lightning-card title="Selected Guide Summary">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+				<thead>
+					<tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+							<div class="slds-truncate" title="Trip Name">Trip Name</div>
+						</th>
+                        <th class="" scope="col">
+							<div class="slds-truncate" title="Guide Allocation">Guide Allocation</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Guide Name">Guide Name</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Guide Phone">Guide Phone</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Guide Email">Guide Email</div>
+						</th>
+						<template if:true={showSecondaryGuide}>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Delete">Delete</div>
+						</th>
+						</template>
+					</tr>
+				</thead>
+				<tbody>
+						<template  for:each={listGuide} for:item="items" for:index="index">
+							<tr key={items.index}>
+								<td scope="col">{items.tripName}</td>
+								<td scope="col">{items.guideAllocation}</td>
+								<td scope="col">{items.guideName}</td>
+								<td scope="col">{items.guidePhone}</td>
+								<td scope="col">{items.guideEmail}</td>
+								<td><lightning-button-icon class="deleteGuide" icon-name="utility:delete" data-id1={index} data-id={items} alternative-text="Delete" title="Delete Guide"
+									onclick={deleteGuideHandler}></lightning-button-icon></td>
+							</tr>
+						</template>
+					<template  for:each={list} for:item="item" for:index="index">
+							<tr key={item.index}>
+								<td scope="col">{item.tripName}</td>
+								<td scope="col">{item.guideAllocation}</td>
+								<td scope="col">{item.guideName}</td>
+								<td scope="col">{item.guidePhone}</td>
+								<td scope="col">{item.guideEmail}</td>
+							</tr>
+					</template>
+				</tbody>
+			</table>
+        </lightning-card>
+		<template if:true={showSecondaryGuide}>
+			<div align ="center">
+        <lightning-button variant="success" label="Allocation" title="Successful action" onclick={clickHandler} class="slds-m-left_x-small"></lightning-button>
+	</div>
+	</template>
+    </lightning-card>
+</template>
